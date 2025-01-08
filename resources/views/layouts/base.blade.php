@@ -115,7 +115,7 @@
                         <div class="main-menu">
                             <div class="menu-left">
                                 <div class="brand-logo">
-                                    <a href="index.htm">
+                                    <a href="{{ route('app.index') }}">
                                         <img src="assets/images/logo.png" class="h-logo img-fluid blur-up lazyload"
                                             alt="logo">
                                     </a>
@@ -136,7 +136,7 @@
                                                     </span>
                                                 </div>
                                             </li>
-                                            <li><a href="index.htm" class="nav-link menu-title">Home</a></li>
+                                            <li><a href="{{ route('app.index') }}" class="nav-link menu-title">Home</a></li>
                                             <li><a href="shop.html" class="nav-link menu-title">Shop</a></li>
                                             <li><a href="cart/list.html" class="nav-link menu-title">Cart</a></li>
                                             <li><a href="about-us.html" class="nav-link menu-title">About Us</a></li>
@@ -176,16 +176,45 @@
                                     </li>
                                     <li class="onhover-dropdown">
                                         <div class="cart-media name-usr">
+                                            @auth
+                                            <span>{{auth::user()->name}}</span>
+                                            @endauth
+
                                             <i data-feather="user"></i>
                                         </div>
                                         <div class="onhover-div profile-dropdown">
                                             <ul>
+                                                @if(Route::has('login'))
+                                                @auth
+                                                @if (Auth::user()->utype === 'ADM')
                                                 <li>
-                                                    <a href="login.html" class="d-block">Login</a>
+                                                    <a href="{{route('admin.index')}}" class="d-block">Dashboard</a>
+                                                </li>
+                                                @else
+                                                <li>
+                                                    <a href="{{route('user.index')}}" class="d-block">My Account</a>
+                                                </li>
+                                                @endif
+                                                <li>
+                                                    <a href="{{ route('logout') }}"
+                                                        onclick="event.preventDefault(); document.getElementById('frmlogout').submit();"
+                                                        class="d-block">
+                                                        Logout
+                                                    </a>
+                                                    <form id="frmlogout" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                                        @csrf
+                                                    </form>
+                                                </li>
+
+                                                @else
+                                                <li>
+                                                    <a href="{{route('login')}}" class="d-block">Login</a>
                                                 </li>
                                                 <li>
-                                                    <a href="register.html" class="d-block">Register</a>
+                                                    <a href="{{route('register')}}" class="d-block">Register</a>
                                                 </li>
+                                                @endauth
+                                                @endif
 
                                             </ul>
                                         </div>
@@ -213,7 +242,7 @@
         </div>
     </header>
 
-@yield('content')
+    @yield('content')
 
     <div id="qvmodal"></div>
 
@@ -564,7 +593,7 @@
     <script src="{{ asset('assets/js/theme-setting.js') }}"></script>
     <script src="{{ asset('assets/js/script.js') }}"></script>
     <script>
-        $(function () {
+        $(function() {
             $('[data-bs-toggle="tooltip"]').tooltip()
         });
     </script>
