@@ -1,12 +1,17 @@
 @extends('layouts.base')
-@push('style')
 
-<link id="color-link" rel="stylesheet" type="text/css" href="assets/css/demo2.css">
+@push('styles')
+    <link id="color-link" rel="stylesheet" type="text/css" href="assets/css/demo2.css">
 
+    <style>
+        nav svg{
+            height: 20px;
+        }
+    </style>
 @endpush
-
 @section('content')
-      <section class="breadcrumb-section section-b-space" style="padding-top:20px;padding-bottom:20px;">
+
+          <section class="breadcrumb-section section-b-space" style="padding-top:20px;padding-bottom:20px;">
         <ul class="circles">
             <li></li>
             <li></li>
@@ -26,7 +31,7 @@
                     <nav>
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item">
-                                <a href="index.htm">
+                                <a href="{{ route('app.index') }}">
                                     <i class="fas fa-home"></i>
                                 </a>
                             </li>
@@ -447,8 +452,7 @@
                     <!-- Prodcut setion -->
                     <div
                         class="mt-1 row g-sm-4 g-3 row-cols-lg-4 row-cols-md-3 row-cols-2 custom-gy-5 product-style-2 ratio_asos product-list-section">
-
-                        @foreach ($products as $product )
+                            @foreach ($products as $product )
 
                         <div>
                             <div class="product-box">
@@ -461,7 +465,7 @@
                                     </div>
                                     <div class="back">
                                         <a href="product/nihil-beatae-sit-sed.html">
-                                            <img src="assets/images/fashion/product/back/{{ $product->image }}"
+                                            <img src="assets/images/fashion/product/back/{{$product->image}}"
                                                 class="bg-img blur-up lazyload" alt="">
                                         </a>
                                     </div>
@@ -487,7 +491,7 @@
                                 </div>
                                 <div class="product-details">
                                     <div class="rating-details">
-                                        <span class="font-light grid-content">{{$product->category->name}}</span>
+                                        <span class="font-light grid-content">{{ $product->category->name }}</span>
                                         <ul class="mt-0 rating">
                                             <li>
                                                 <i class="fas fa-star theme-color"></i>
@@ -508,55 +512,53 @@
                                     </div>
                                     <div class="main-price">
                                         <a href="product/nihil-beatae-sit-sed.html" class="font-default">
-                                            <h5 class="ms-0">{{$product->name}}</h5>
+                                            <h5 class="ms-0">{{ $product->name }}</h5>
                                         </a>
                                         <div class="listing-content">
-                                            <span class="font-light">{{$product->category->name}}</span>
-                                            <p class="font-light">{{ $product->short_description }}</p>
+                                            <span class="font-light">{{ $product->category->name }}</span>
+                                            <p class="font-light">{{$product->short_description}}</p>
                                         </div>
-                                        <h3 class="theme-color">{{$product->regular_price}}</h3>
+                                        <h3 class="theme-color">{{ $product->regular_price }}</h3>
                                         <button class="btn listing-content">Add To Cart</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                         @endforeach
 
+                        @endforeach
 
                     </div>
-                    <nav class="page-section">
-                        <ul class="pagination">
-                            <li class="page-item">
-                                <a class="page-link" href="javascript:void(0)" aria-label="Previous"
-                                    style="color:#6c757d;">
-                                    <span aria-hidden="true">
-                                        <i class="fas fa-chevron-left"></i>
-                                    </span>
-                                </a>
-                            </li>
 
-
-                            <li class="page-item active">
-                                <a class="page-link" href="javascript:void(0)">1</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="shop-1.html?page=2">2</a>
-                            </li>
-
-                            <li class="page-item">
-                                <a href="shop-1.html?page=2" class="page-link" aria-label="Next">
-                                    <span aria-hidden="true">
-                                        <i class="fas fa-chevron-right"></i>
-                                    </span>
-                                </a>
-                            </li>
-
-                        </ul>
-                    </nav>
+                     <!-- Pagination links -->
+                    {{$products->links()}}
 
                 </div>
             </div>
         </div>
     </section>
     <!-- Shop Section end -->
+    <!-- Subscribe Section Start -->
+    <section class="subscribe-section section-b-space">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-6">
+                    <div class="subscribe-details">
+                        <h2 class="mb-3">Subscribe Our News</h2>
+                        <h6 class="font-light">Subscribe and receive our newsletters to follow the news about our fresh
+                            and fantastic Products.</h6>
+                    </div>
+                </div>
+
+                <div class="mt-3 col-lg-4 col-md-6 mt-md-0">
+                    <div class="subsribe-input">
+                        <div class="input-group">
+                            <input type="text" class="form-control subscribe-input" placeholder="Your Email Address">
+                            <button class="btn btn-solid-default" type="button">Button</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Subscribe Section End -->
 @endsection
