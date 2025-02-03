@@ -27,6 +27,7 @@ class ProductFactory extends Factory
             'short_description'=> $this->faker->text(200),
             'description'=> $this->faker->text(500),
             'regular_price'=> $this->faker->numberBetween(1, 22),
+            'sale_price'=> $this->faker->numberBetween(1, 15),
             'SKU'=> 'SMD'. $this->faker->unique()->numberBetween(100, 500),
             'stock_status'=> 'instock',
             'quantity'=> $this->faker->numberBetween(100, 200),
